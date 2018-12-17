@@ -12,7 +12,7 @@
         <fieldset>
             <legend>Logged in as {{ user_logged }}</legend>
             <center>
-                success
+                success, <a href="{{url_for('logout')}}">logout</a>
                 {% with messages = get_flashed_messages() %}
                 {% if messages %}
                     {% for message in messages %}

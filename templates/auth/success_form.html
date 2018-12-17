@@ -4,18 +4,15 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 <head>
     <meta charset="UTF-8">
-    <title>Login form - Minimalistic logon</title>
+    <title>Success form - Minimalistic logon</title>
 </head>
 <body>
 <div>
-    <form action="/login" method="post">
+    <form action="{{url_for('success')}}" method="post">
         <fieldset>
-            <legend>Login :</legend>
+            <legend>Logged in as {{ user_logged }}</legend>
             <center>
-                Enter your username : <input name="username" type="text" value="Sim4n6"><br>
-                Enter your password : <input name="password" type="password"><br><br>
-                <button type="submit" name="submit_btn" value="login" autofocus>Login</button>
-                <button type="submit" name="submit_btn" value="new user">Create user</button>
+                success
                 {% with messages = get_flashed_messages() %}
                 {% if messages %}
                     {% for message in messages %}

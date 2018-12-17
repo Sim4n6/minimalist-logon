@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+<head>
+    <meta charset="UTF-8">
+    <title>Index - Minimalistic logon</title>
+</head>
+<body>
+<div>
+    <form action="{{ url_for('index') }}" method="post">
+        <fieldset>
+            <legend>Minimalistic logon</legend>
+            <center>
+                Welcome : <br>
+                <button type="submit" name="logon_btn" value="yes_logon">Log on</button>
+                <button type="submit" name="logon_btn" value="no_register">Register</button>
+                {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    {% for message in messages %}
+                    <br><font size="2" color="red">{{ message }}</font>
+                    {% endfor %}
+                {% endif %}
+                {% endwith %}
+            </center>
+        </fieldset>
+    </form>
+</div>
+
+</body>
+</html>

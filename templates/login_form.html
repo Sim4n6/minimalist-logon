@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+<head>
+    <meta charset="UTF-8">
+    <title>Login form - Minimalistic logon</title>
+</head>
+<body>
+<div>
+    <form action="/login" method="post">
+        <fieldset>
+            <legend>Login :</legend>
+            <center>
+                Enter your username : <input name="username" type="text" value="Sim4n6"><br>
+                Enter your password : <input name="password" type="password"><br><br>
+                <button type="submit" name="submit_btn" value="login" autofocus>Login</button>
+                <button type="submit" name="submit_btn" value="new user">Create user</button>
+                {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    {% for message in messages %}
+                    <br><font size="2" color="red">{{ message }}</font>
+                    {% endfor %}
+                {% endif %}
+                {% endwith %}
+            </center>
+        </fieldset>
+    </form>
+</div>
+
+</body>
+</html>

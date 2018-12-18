@@ -16,7 +16,7 @@ INSTALL
 Create a virtual environnement on linux : 
 
     $ python3 -m venv venv
-    $ python3 venv/bin/activate
+    $ source venv/bin/activate
     
 Create a virtual environnement on windows :
 

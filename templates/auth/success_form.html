@@ -13,11 +13,16 @@
             <legend>Logged in as {{ user_logged }}</legend>
             <center>
                 success, <a href="{{url_for('logout')}}">logout</a>
+            </center>
+        </fieldset>
+        <fieldset>
+            <legend>Message :</legend>
+            <center>
                 {% with messages = get_flashed_messages() %}
                 {% if messages %}
-                    {% for message in messages %}
-                    <br><font size="2" color="red">{{ message }}</font>
-                    {% endfor %}
+                {% for message in messages %}
+                <font size="2" color="red">{{ message }}</font>
+                {% endfor %}
                 {% endif %}
                 {% endwith %}
             </center>

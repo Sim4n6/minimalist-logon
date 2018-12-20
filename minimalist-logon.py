@@ -32,7 +32,7 @@ def login_check():
 		return render_template("auth/login_form.html")
 	elif request.method == 'POST':
 		if request.form["submit_btn"] == "new user":
-			flash("register a new user button clicked")
+			flash("Register a new user button clicked")
 			return redirect(url_for("register_user"))
 		elif request.form["submit_btn"] == "login":
 			result = check_credentials_correct(db_name, request.form["username"], request.form["password"])
@@ -40,7 +40,7 @@ def login_check():
 				session['username'] = request.form['username']
 				return redirect(url_for("success", userlogged=request.form['username']))
 			else:
-				flash('could not connect with the typed credentials !')
+				flash('Could not connect with the typed credentials !')
 				return redirect(url_for("login_check"))
 	else:
 		return redirect(url_for("logout"))
@@ -75,9 +75,9 @@ def success():
 			return render_template("auth/success_form.html", user_logged=session['username'])
 		elif request.method == "POST":
 			if request.form["yes_no_btn"] == "yes":
-				flash("yes clicked")
+				flash("yes btn clicked")
 			elif request.form["yes_no_btn"] == "no":
-				flash("no clicked")
+				flash("no btn clicked")
 			return render_template("auth/success_form.html", user_logged=session["username"])
 		else:
 			return redirect(url_for("logout"))
@@ -88,7 +88,7 @@ def success():
 @app.route('/logout')
 def logout():
 	session.pop('username', None)
-	flash("logged out")
+	flash("logged out ! ")
 	return redirect(url_for('index'))
 
 

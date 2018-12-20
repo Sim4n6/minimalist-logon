@@ -4,7 +4,7 @@ A minimalist website with logon and logout support using Python 3.x and Flask.
 #### Features:
  - minimalistic
  - logon/logout support
- - written in Python 3.7 using Flask
+ - written in Python using Flask and Sqlite3
    
 INSTALL
 ----

@@ -7,17 +7,18 @@ def encrypt_password(password):
 	return sha1(password.encode('UTF-8')).hexdigest().upper()
 
 
-def initialize_db(db_name_arg):
-	""" intialize the database for the first time and create the table users if not already existing """
+def create_db(db_name_arg):
+	""" intialize the database for the first time and create the table users if does not exist """
 	try:
 		conn0 = lite.connect(db_name_arg)
 		c0 = conn0.cursor()
 		c0.execute(
-			'''CREATE TABLE IF NOT EXISTS users(employee_id INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT NOT NULL, 
+			'''CREATE TABLE users(employee_id INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT NOT NULL, 
 						uname TEXT NOT NULL, password TEXT NOT NULL );''')
 		conn0.commit()
 	except lite.Error as e:
 		conn0.rollback()
+		print(e.args[0])
 	finally:
 		conn0.close()
 
@@ -35,24 +36,26 @@ def check_credentials_correct(db_name_arg, username_arg, password_arg):
 		result = c3.fetchall()
 	except lite.Error as e:
 		conn3.rollback()
+		print(e.args[0])
 	finally:
 		conn3.close()
 
 	return result
 
 
-def check_if_already_registered(db_name_arg, username_arg, uname_arg):
-	""" check whether a user is already registred and returns the result in a list """
+def check_if_already_registered(db_name_arg, username_arg):
+	""" check whether a user is already registred and returns the result in a list of typles """
 	result = []
 	try:
 		conn4 = lite.connect(db_name_arg)
 		cursor = conn4.cursor()
 		# count the number of users in the database that have the same username and uname
-		num_same_user = '''SELECT COUNT(*) FROM users WHERE username = ? and uname = ? '''
-		cursor.execute(num_same_user, [username_arg, uname_arg])
+		num_same_user = '''SELECT COUNT(*) FROM users WHERE username = ? '''
+		cursor.execute(num_same_user, [username_arg])
 		result = cursor.fetchall()
 	except lite.Error as e:
 		conn4.rollback()
+		print(e.args[0])
 	finally:
 		conn4.close()
 
@@ -74,5 +77,6 @@ def insert_user(db_name_arg, username_arg, uname_arg, password_arg):
 		connection.commit()
 	except lite.Error as e:
 		connection.rollback()
+		print(e.args[0])
 	finally:
 		connection.close()

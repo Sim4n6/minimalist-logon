@@ -17,7 +17,7 @@
                 Enter your name : <input name="name" type="text"><br>
                 Enter your password : <input name="password" type="password"><br><br>
                 <button type="submit" name="submit_btn" value="create new user" autofocus>Create new user</button>
-                <button type="reset">Reset</button>
+                <button type="submit" name="submit_btn" value="cancel">Cancel</button>
                 {% with messages = get_flashed_messages() %}
                 {% if messages %}
                 {% for message in messages %}

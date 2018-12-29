@@ -4,12 +4,15 @@ import os
 
 app = Flask(__name__)
 app.secret_key = b'_5#y2L"F4Q8zZERUNdnJE'
-db_name = "shifts.db"
+db_name = "db_login.db"
 
 
 @app.route('/')
 @app.route('/index', methods=['POST', 'GET'])
 def index():
+	if not os.path.exists(db_name):
+		create_db(db_name)
+
 	if request.method == "GET":
 		return render_template("index.html")
 	elif request.method == "POST":
@@ -26,9 +29,6 @@ def index():
 @app.route('/login', methods=['POST', 'GET'])
 def login_check():
 	if request.method == 'GET':
-		if not os.path.exists(db_name):
-			create_db(db_name)
-
 		return render_template("auth/login_form.html")
 	elif request.method == 'POST':
 		if request.form["submit_btn"] == "new user":
@@ -56,11 +56,12 @@ def register_user():
 		elif request.form["submit_btn"] == "create new user":
 			# result is a a list of tuples
 			result = check_if_already_registered(db_name, request.form["username"])
+			print(result)
 			if result[0] != (0,):
 				flash('Username taken try a different one, please.')
 				return redirect(url_for("register_user"))
 			else:
-				insert_user(db_name, request.form["username"], request.form["name"], request.form["password"])
+				insert_user(db_name, request.form["username"], request.form["email"], request.form["password"])
 				flash('New account created successfully.')
 				return redirect(url_for("login_check"))
 	else:
@@ -69,8 +70,8 @@ def register_user():
 
 @app.route("/success", methods=['GET', 'POST'])
 def success():
-	flash(session["username"])
 	if 'username' in session:
+		flash(session["username"])
 		if request.method == "GET":
 			return render_template("auth/success_form.html", user_logged=session['username'])
 		elif request.method == "POST":

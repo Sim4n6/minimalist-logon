@@ -14,7 +14,7 @@ def create_db(db_name_arg):
 		c0 = conn0.cursor()
 		c0.execute(
 			'''CREATE TABLE users(employee_id INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT NOT NULL, 
-						uname TEXT NOT NULL, password TEXT NOT NULL );''')
+						email TEXT NOT NULL, password TEXT NOT NULL );''')
 		conn0.commit()
 	except lite.Error as e:
 		conn0.rollback()
@@ -62,7 +62,7 @@ def check_if_already_registered(db_name_arg, username_arg):
 	return result
 
 
-def insert_user(db_name_arg, username_arg, uname_arg, password_arg):
+def insert_user(db_name_arg, username_arg, email_arg, password_arg):
 	""" insert a user with a password and a name into the database """
 	try:
 		# establish a connection to the database a get a cursor
@@ -71,8 +71,8 @@ def insert_user(db_name_arg, username_arg, uname_arg, password_arg):
 		# define a function for encrypting password
 		connection.create_function('encrypt', 1, encrypt_password)
 		# insert the user with uname and encrypted password inside the database
-		insert = '''INSERT INTO users (username, uname, password) VALUES(?, ?, encrypt(?))'''
-		cursor.execute(insert, [username_arg, uname_arg, password_arg])
+		insert = '''INSERT INTO users (username, email, password) VALUES(?, ?, encrypt(?))'''
+		cursor.execute(insert, [username_arg, email_arg, password_arg])
 		# commit the insert statement
 		connection.commit()
 	except lite.Error as e:

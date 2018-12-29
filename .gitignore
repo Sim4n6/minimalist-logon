@@ -107,5 +107,5 @@ venv.bak/
 .idea
 
 # app specific
-shifts.db
-shifts.db-journal
+db_login.db
+db_login.db-journal

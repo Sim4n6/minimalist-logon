@@ -35,10 +35,10 @@ def login_check():
 			flash("Register a new user button clicked")
 			return redirect(url_for("register_user"))
 		elif request.form["submit_btn"] == "login":
-			result = check_credentials_correct(db_name, request.form["username"], request.form["password"])
+			result = check_credentials_correct(db_name, request.form["username"].lower(), request.form["password"])
 			if result:
-				session['username'] = request.form['username']
-				return redirect(url_for("success", userlogged=request.form['username']))
+				session['username'] = request.form['username'].lower()
+				return redirect(url_for("success", userlogged=request.form['username'].lower()))
 			else:
 				flash('Could not connect with the typed credentials !')
 				return redirect(url_for("login_check"))
@@ -55,13 +55,13 @@ def register_user():
 			return redirect(url_for("index"))
 		elif request.form["submit_btn"] == "create new user":
 			# result is a a list of tuples
-			result = check_if_already_registered(db_name, request.form["username"])
+			result = check_if_already_registered(db_name, request.form["username"].lower())
 			print(result)
 			if result[0] != (0,):
-				flash('Username taken try a different one, please.')
+				flash('Username already taken.')
 				return redirect(url_for("register_user"))
 			else:
-				insert_user(db_name, request.form["username"], request.form["email"], request.form["password"])
+				insert_user(db_name, request.form["username"].lower(), request.form["email"], request.form["password"])
 				flash('New account created successfully.')
 				return redirect(url_for("login_check"))
 	else:

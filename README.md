@@ -7,8 +7,7 @@ A minimalist website with logon and logout support using Python 3.x and Flask.
  - written in Python using Flask and Sqlite3
  
 #### TODOs : 
- - [ ] not use one single hash 
- - [ ] salt it 
+ - [ ] not use one single hash and salt it 
  - [ ] use a dedicated module : passlib, etc.
    
 INSTALL
@@ -44,13 +43,3 @@ On Windows :
 
 Open http://127.0.0.1:5000 in a browser.
 
-TEST
-----
-Execute all tests : 
-
-    $ pytest 
-Run a coverage and generate an html report : 
-
-    $ coverage run -m pytest
-    $ coverage report
-    $ coverage html
